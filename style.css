@@ -1,0 +1,557 @@
+/* =========================================================
+   Matrix Math — shared styles
+   Color scheme inspired by secretninja123.github.io/matrixmathportal
+   ========================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
+
+:root{
+  /* --- color tokens --- */
+  --bg:        #060a07;
+  --bg-panel:  #0a130d;
+  --bg-raised: #0e1a12;
+  --green:     #00ff6a;
+  --green-2:   #4dffa0;
+  --green-dim: #0f5c33;
+  --border:    #143621;
+  --text:      #d9f5e2;
+  --text-dim:  #7fa892;
+  --text-mute: #587964;
+  --danger:    #ff5d5d;
+
+  /* --- type --- */
+  --font-display: 'Space Grotesk', system-ui, sans-serif;
+  --font-mono: 'IBM Plex Mono', 'SFMono-Regular', Consolas, monospace;
+
+  --maxw: 1120px;
+}
+
+*{ box-sizing: border-box; }
+html{ scroll-behavior: smooth; }
+
+@media (prefers-reduced-motion: reduce){
+  html{ scroll-behavior: auto; }
+  *{ animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+}
+
+body{
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-display);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+img{ max-width: 100%; display: block; }
+
+a{ color: inherit; text-decoration: none; }
+
+h1,h2,h3,h4{
+  font-family: var(--font-display);
+  font-weight: 600;
+  margin: 0 0 0.5em;
+  letter-spacing: -0.01em;
+}
+
+p{ color: var(--text-dim); max-width: 62ch; }
+
+.wrap{
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* subtle scanline / grid texture on every page */
+body::before{
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image:
+    linear-gradient(rgba(0,255,106,0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,255,106,0.035) 1px, transparent 1px);
+  background-size: 42px 42px;
+  mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 40%, transparent 90%);
+}
+
+/* =========================================================
+   Nav
+   ========================================================= */
+.site-header{
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(6,10,7,0.85);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border);
+}
+
+.nav{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 24px;
+  max-width: var(--maxw);
+  margin: 0 auto;
+}
+
+.brand{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-mono);
+  font-size: 15px;
+  color: var(--text);
+}
+
+.brand-mark{
+  width: 26px;
+  height: 26px;
+  border: 1px solid var(--green-dim);
+  border-radius: 4px;
+  display: grid;
+  place-items: center;
+  color: var(--green);
+  font-size: 13px;
+  font-weight: 600;
+  background: linear-gradient(180deg, rgba(0,255,106,0.12), transparent);
+}
+
+.nav-links{
+  display: flex;
+  gap: 28px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-size: 14px;
+}
+
+.nav-links a{
+  color: var(--text-dim);
+  transition: color 0.2s ease;
+  position: relative;
+  padding: 4px 0;
+}
+.nav-links a[aria-current="page"]{ color: var(--green-2); }
+.nav-links a[aria-current="page"]::after{
+  content: "";
+  position: absolute;
+  left: 0; right: 0; bottom: -4px;
+  height: 1px;
+  background: var(--green);
+}
+
+.nav-toggle{
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--text);
+  width: 44px;
+  height: 44px;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+@media (max-width: 760px){
+  .nav-toggle{ display: flex; }
+  .nav-links{
+    position: absolute;
+    top: 64px; left: 0; right: 0;
+    background: var(--bg-panel);
+    border-bottom: 1px solid var(--border);
+    flex-direction: column;
+    gap: 0;
+    padding: 8px 24px 18px;
+    display: none;
+  }
+  .nav-links.open{ display: flex; }
+  .nav-links a{ padding: 14px 0; border-bottom: 1px solid var(--border); display: block; }
+}
+
+/* =========================================================
+   Buttons
+   ========================================================= */
+.btn{
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 14px;
+  padding: 12px 20px;
+  border-radius: 6px;
+  border: 1px solid var(--green-dim);
+  cursor: pointer;
+  transition: transform 0.15s ease, border-color 0.15s ease, background 0.15s ease, box-shadow 0.2s ease;
+}
+.btn:active{ transform: translateY(0) scale(0.97); }
+.btn .arrow{ display: inline-block; transition: transform 0.2s ease; }
+
+.btn-primary{
+  background: var(--green);
+  color: #04150a;
+  border-color: var(--green);
+  font-weight: 600;
+}
+
+.btn-ghost{
+  background: transparent;
+  color: var(--text);
+}
+
+/* =========================================================
+   Hero (home page)
+   ========================================================= */
+.hero{
+  position: relative;
+  overflow: hidden;
+  border-bottom: 1px solid var(--border);
+}
+
+#math-rain{
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.55;
+}
+
+/* smaller math-scene canvases scattered in section backgrounds
+   around the rest of the site — same animation, lighter touch */
+.visual-section{
+  position: relative;
+  overflow: hidden;
+}
+.ambient-rain{
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.4;
+  pointer-events: none;
+}
+.visual-section > .wrap{
+  position: relative;
+  z-index: 2;
+}
+
+.hero-inner{
+  position: relative;
+  z-index: 2;
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 120px 24px 100px;
+}
+
+.eyebrow{
+  font-family: var(--font-mono);
+  color: var(--green-2);
+  font-size: 13px;
+  margin-bottom: 18px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* short underline that draws in next to the eyebrow text on scroll */
+.eyebrow::before{
+  content: "";
+  display: inline-block;
+  width: 0;
+  height: 1px;
+  background: var(--green);
+  transition: width 0.6s cubic-bezier(0.16,0.84,0.44,1);
+}
+.eyebrow.eyebrow-in::before{ width: 26px; }
+
+.hero h1{
+  font-size: clamp(38px, 6vw, 68px);
+  max-width: 14ch;
+  color: var(--text);
+}
+
+.hero h1 .accent{ color: var(--green); }
+
+.hero p{
+  font-size: 17px;
+  margin-top: 18px;
+  max-width: 48ch;
+}
+
+.hero-actions{
+  display: flex;
+  gap: 14px;
+  margin-top: 34px;
+  flex-wrap: wrap;
+}
+
+/* one orchestrated entrance for the hero content on page load */
+.hero-inner > *{
+  opacity: 0;
+  animation: heroRise 0.8s cubic-bezier(0.16,0.84,0.44,1) forwards;
+}
+.hero-inner > *:nth-child(1){ animation-delay: 0.05s; }
+.hero-inner > *:nth-child(2){ animation-delay: 0.16s; }
+.hero-inner > *:nth-child(3){ animation-delay: 0.30s; }
+.hero-inner > *:nth-child(4){ animation-delay: 0.44s; }
+
+@keyframes heroRise{
+  from{ opacity: 0; transform: translateY(22px); }
+  to{ opacity: 1; transform: translateY(0); }
+}
+
+/* thin bar across the top of the viewport tracking scroll position */
+.scroll-progress{
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: var(--green);
+  transform: scaleX(0);
+  transform-origin: left;
+  z-index: 100;
+  box-shadow: 0 0 8px rgba(0,255,106,0.55);
+}
+
+/* =========================================================
+   Scroll reveal
+   ========================================================= */
+.reveal{
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.reveal.is-visible{
+  opacity: 1;
+  transform: translateY(0);
+}
+.reveal-stagger > *{
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.reveal-stagger.is-visible > *{
+  opacity: 1;
+  transform: translateY(0);
+}
+.reveal-stagger.is-visible > *:nth-child(1){ transition-delay: 0.02s; }
+.reveal-stagger.is-visible > *:nth-child(2){ transition-delay: 0.10s; }
+.reveal-stagger.is-visible > *:nth-child(3){ transition-delay: 0.18s; }
+.reveal-stagger.is-visible > *:nth-child(4){ transition-delay: 0.26s; }
+
+/* =========================================================
+   Sections / cards
+   ========================================================= */
+section{ position: relative; z-index: 1; }
+
+.section{ padding: 88px 0; }
+.section-head{ max-width: 56ch; margin-bottom: 44px; }
+.section-head .eyebrow{ margin-bottom: 10px; }
+
+.grid{
+  display: grid;
+  gap: 22px;
+}
+.grid-3{ grid-template-columns: repeat(3, 1fr); }
+.grid-2{ grid-template-columns: repeat(2, 1fr); }
+@media (max-width: 860px){
+  .grid-3, .grid-2{ grid-template-columns: 1fr; }
+}
+
+.card{
+  background: var(--bg-panel);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 26px;
+  transition: border-color 0.2s ease, transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.card .tag{
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--green-2);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+.card .tag::before{
+  content: "";
+  display: inline-block;
+  width: 0;
+  height: 1px;
+  background: var(--green-2);
+  transition: width 0.5s ease;
+}
+.reveal-stagger.is-visible .tag::before{ width: 14px; }
+
+.stat{
+  font-family: var(--font-mono);
+  font-size: 34px;
+  color: var(--green);
+}
+.stat-label{ color: var(--text-mute); font-size: 13px; margin-top: 6px; }
+
+/* smaller inline count-up used next to a heading on non-Home pages */
+.mini-stat{
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-top: 20px;
+}
+.mini-stat .stat{ font-size: 26px; }
+.mini-stat .stat-label{ margin-top: 0; }
+
+/* =========================================================
+   Forms (registration)
+   ========================================================= */
+.form-card{
+  background: var(--bg-panel);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 36px;
+  max-width: 620px;
+}
+
+.field{ margin-bottom: 20px; }
+.field label{
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--text-dim);
+  margin-bottom: 8px;
+}
+.field input, .field select, .field textarea{
+  width: 100%;
+  background: var(--bg-raised);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 12px 14px;
+  color: var(--text);
+  font-family: var(--font-display);
+  font-size: 15px;
+}
+.field input:focus, .field select:focus, .field textarea:focus{
+  outline: none;
+  border-color: var(--green);
+}
+.field-row{ display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+@media (max-width: 560px){ .field-row{ grid-template-columns: 1fr; } }
+
+.form-status{
+  font-family: var(--font-mono);
+  font-size: 13.5px;
+  margin-top: 16px;
+  min-height: 18px;
+}
+.form-status.ok{ color: var(--green-2); }
+.form-status.err{ color: var(--danger); }
+
+/* =========================================================
+   Table / tutor / review layouts
+   ========================================================= */
+.tutor-card{
+  display: flex;
+  gap: 18px;
+  background: var(--bg-panel);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 22px;
+  transition: border-color 0.2s ease, transform 0.2s ease;
+}
+.tutor-avatar{
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: var(--bg-raised);
+  border: 1px solid var(--green-dim);
+  display: grid;
+  place-items: center;
+  font-family: var(--font-mono);
+  color: var(--green);
+  flex-shrink: 0;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.link-card{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  background: var(--bg-panel);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 30px;
+  flex-wrap: wrap;
+  transition: border-color 0.2s ease;
+}
+
+/* =========================================================
+   Footer
+   ========================================================= */
+.site-footer{
+  border-top: 1px solid var(--border);
+  padding: 36px 0;
+  margin-top: 40px;
+}
+.footer-inner{
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  color: var(--text-mute);
+}
+
+/* =========================================================
+   Hover effects — only for devices that actually have a mouse.
+   Keeping these behind (hover: hover) stops touch devices from
+   getting stuck showing a "hovered" card/button after a tap.
+   ========================================================= */
+@media (hover: hover) and (pointer: fine){
+  .nav-links a:hover{ color: var(--green-2); }
+  .btn:hover .arrow{ transform: translateX(4px); }
+  .btn-primary:hover{ transform: translateY(-1px); background: var(--green-2); box-shadow: 0 8px 24px -8px rgba(0,255,106,0.5); }
+  .btn-ghost:hover{ border-color: var(--green); color: var(--green-2); }
+  .card:hover{
+    border-color: var(--green-dim);
+    transform: translateY(-4px);
+    box-shadow: 0 16px 32px -16px rgba(0,255,106,0.28);
+  }
+  .tutor-card:hover{ border-color: var(--green-dim); transform: translateY(-3px); }
+  .tutor-card:hover .tutor-avatar{
+    transform: scale(1.08);
+    box-shadow: 0 0 0 5px rgba(0,255,106,0.08);
+  }
+  .link-card:hover{ border-color: var(--green-dim); }
+}
+
+/* =========================================================
+   Responsive tuning
+   Layout already flexes via the grid/flex rules above (nav
+   collapses under 760px, card grids collapse under 860px,
+   form rows collapse under 560px). This trims spacing and
+   sizing further for small screens, and gives larger screens
+   a bit more breathing room.
+   ========================================================= */
+@media (max-width: 600px){
+  .hero-inner{ padding: 88px 20px 64px; }
+  .section{ padding: 60px 0; }
+  .card{ padding: 22px; }
+  .form-card{ padding: 24px; }
+  .tutor-card{ flex-direction: column; text-align: center; align-items: center; }
+  .link-card{ flex-direction: column; align-items: stretch; text-align: center; }
+  .link-card .btn{ justify-content: center; }
+  .footer-inner{ flex-direction: column; text-align: center; }
+}
+
+@media (min-width: 1400px){
+  :root{ --maxw: 1240px; }
+}
+
+/* comfortable tap feedback on touch devices, no lingering highlight box */
+a, button{ -webkit-tap-highlight-color: transparent; }

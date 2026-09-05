@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Matrix Math — Home</title>
+<!-- Favicon: replace favicon.svg in the project folder with your own
+     image (any browser-supported favicon format works — .svg, .png, .ico)
+     and keep this filename, or update the href below to point at it. -->
+<link rel="icon" href="favicon.svg">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <nav class="nav">
+    <a href="index.html" class="brand">
+      <span class="brand-mark">M</span>
+      Matrix Math
+    </a>
+    <button class="nav-toggle" aria-label="Toggle menu">☰</button>
+    <ul class="nav-links">
+      <li><a href="index.html" aria-current="page">Home</a></li>
+      <li><a href="courses.html">Courses</a></li>
+      <li><a href="about.html">About &amp; Tutors</a></li>
+      <li><a href="register.html">Register</a></li>
+      <li><a href="reviews.html">Reviews</a></li>
+      <!-- external link to the separate student/coach portal — swap the href if the URL changes -->
+      <li><a href="https://secretninja123.github.io/matrixmathportal" target="_blank" rel="noopener">Matrix Math Portal</a></li>
+    </ul>
+  </nav>
+</header>
+
+<section class="hero">
+  <canvas id="math-rain"></canvas>
+  <div class="hero-inner">
+    <span class="eyebrow">// math tutoring, decoded</span>
+    <h1>Math starts to make sense when someone <span class="accent">shows their work</span>.</h1>
+    <p>Small-group and 1:1 tutoring for algebra through calculus, taught by tutors who explain the "why," not just the steps.</p>
+    <div class="hero-actions">
+      <a href="register.html" class="btn btn-primary">Register for a course</a>
+      <a href="courses.html" class="btn btn-ghost">See course list</a>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">// why families choose us</span>
+      <h2>Built around how students actually get stuck</h2>
+      <p>Most kids don't fall behind because they can't do math — they fall behind because one gap never got closed. We find that gap first.</p>
+    </div>
+
+    <div class="grid grid-3 reveal-stagger">
+      <div class="card">
+        <span class="tag">01 — Diagnose</span>
+        <h3>Placement, not guesswork</h3>
+        <p>Every new student starts with a short diagnostic so their tutor knows exactly where to begin.</p>
+      </div>
+      <div class="card">
+        <span class="tag">02 — Teach</span>
+        <h3>Small groups, real conversation</h3>
+        <p>Sessions cap at 4 students, so nobody quietly falls behind in the back of the room.</p>
+      </div>
+      <div class="card">
+        <span class="tag">03 — Track</span>
+        <h3>Progress you can see</h3>
+        <p>Parents get a short update after every unit — not just a grade, but what actually clicked.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section visual-section" style="padding-top:0;">
+  <canvas class="ambient-rain" aria-hidden="true"></canvas>
+  <div class="wrap">
+    <div class="grid grid-3 reveal-stagger">
+      <div>
+        <div class="stat" data-target="312" data-decimals="0">0</div>
+        <div class="stat-label">students tutored this year</div>
+      </div>
+      <div>
+        <div class="stat" data-target="4.9" data-decimals="1" data-suffix="/5">0</div>
+        <div class="stat-label">average parent rating</div>
+      </div>
+      <div>
+        <div class="stat" data-target="6" data-decimals="0">0</div>
+        <div class="stat-label">grade levels covered, 6th–12th</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="wrap footer-inner">
+    <span>© Matrix Math Tutoring</span>
+    <span>Home · Courses · About · Register · Reviews</span>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

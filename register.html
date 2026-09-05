@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Matrix Math — Register</title>
+<!-- Favicon: replace favicon.svg in the project folder with your own
+     image (any browser-supported favicon format works — .svg, .png, .ico)
+     and keep this filename, or update the href below to point at it. -->
+<link rel="icon" href="favicon.svg">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <nav class="nav">
+    <a href="index.html" class="brand">
+      <span class="brand-mark">M</span>
+      Matrix Math
+    </a>
+    <button class="nav-toggle" aria-label="Toggle menu">☰</button>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="courses.html">Courses</a></li>
+      <li><a href="about.html">About &amp; Tutors</a></li>
+      <li><a href="register.html" aria-current="page">Register</a></li>
+      <li><a href="reviews.html">Reviews</a></li>
+      <!-- external link to the separate student/coach portal — swap the href if the URL changes -->
+      <li><a href="https://secretninja123.github.io/matrixmathportal" target="_blank" rel="noopener">Matrix Math Portal</a></li>
+    </ul>
+  </nav>
+</header>
+
+<section class="section visual-section" style="padding-top:64px; border-bottom:1px solid var(--border);">
+  <canvas class="ambient-rain" aria-hidden="true"></canvas>
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">// registration</span>
+      <h1>Register for a course</h1>
+      <p>Fill this out and we'll follow up within one business day to confirm placement and scheduling. Submissions are saved to a Firestore database — see the setup note in the page source before this goes live.</p>
+    </div>
+
+    <form class="form-card reveal" id="registration-form">
+
+      <div class="field-row">
+        <div class="field">
+          <label for="student-name">Student name</label>
+          <input type="text" id="student-name" name="studentName" required>
+        </div>
+        <div class="field">
+          <label for="grade">Grade level</label>
+          <select id="grade" name="grade" required>
+            <option value="" disabled selected>Select grade</option>
+            <option>6th</option>
+            <option>7th</option>
+            <option>8th</option>
+            <option>9th</option>
+            <option>10th</option>
+            <option>11th</option>
+            <option>12th</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="field-row">
+        <div class="field">
+          <label for="parent-name">Parent / guardian name</label>
+          <input type="text" id="parent-name" name="parentName" required>
+        </div>
+        <div class="field">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" required>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="phone">Phone</label>
+        <input type="tel" id="phone" name="phone">
+      </div>
+
+      <div class="field">
+        <label for="course">Course</label>
+        <select id="course" name="course" required>
+          <option value="" disabled selected>Select a course</option>
+          <option>Pre-Algebra Foundations</option>
+          <option>Algebra I</option>
+          <option>Geometry</option>
+          <option>Algebra II</option>
+          <option>Pre-Calculus</option>
+          <option>AP Calculus AB/BC</option>
+          <option>Test Prep: SAT/ACT Math</option>
+          <option>Private Tutoring</option>
+          <option>Homework Help Drop-In</option>
+          <option>Not sure — help me choose</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="notes">Anything we should know?</label>
+        <textarea id="notes" name="notes" rows="3"></textarea>
+      </div>
+
+      <button type="submit" class="btn btn-primary" id="submit-btn">Submit registration</button>
+      <div class="form-status" id="form-status"></div>
+    </form>
+  </div>
+</section>
+
+<section class="section visual-section" style="padding:56px 0;">
+  <canvas class="ambient-rain" aria-hidden="true"></canvas>
+  <div class="wrap reveal" style="text-align:center;">
+    <p style="margin:0 auto;">Most families hear back within one business day.</p>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="wrap footer-inner">
+    <span>© Matrix Math Tutoring</span>
+    <span>Home · Courses · About · Register · Reviews</span>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+
+<!-- =========================================================
+     Firebase / Firestore integration
+     -------------------------------------------------------
+     1. Go to https://console.firebase.google.com, create (or
+        open) a project, then add a Web App to get your config.
+     2. Paste that config into firebaseConfig below.
+     3. In the Firebase console, create a Firestore database
+        (Build > Firestore Database > Create database).
+     4. Set Firestore security rules so the "registrations"
+        collection can be written by site visitors, e.g.:
+
+          rules_version = '2';
+          service cloud.firestore {
+            match /databases/{database}/documents {
+              match /registrations/{doc} {
+                allow create: if true;
+                allow read, update, delete: if false;
+              }
+            }
+          }
+
+        (Locking reads keeps other visitors from seeing the
+        submitted list — only your Firebase console can read it
+        unless you add authenticated admin access later.)
+     ========================================================= -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+  import {
+    getFirestore,
+    collection,
+    addDoc,
+    serverTimestamp
+  } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+  // ---- PASTE YOUR FIREBASE PROJECT CONFIG HERE ----
+  const firebaseConfig = {
+    apiKey: "YOUR_API_KEY",
+    authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+    projectId: "YOUR_PROJECT_ID",
+    storageBucket: "YOUR_PROJECT_ID.appspot.com",
+    messagingSenderId: "YOUR_SENDER_ID",
+    appId: "YOUR_APP_ID"
+  };
+  // --------------------------------------------------
+
+  const form = document.getElementById('registration-form');
+  const statusEl = document.getElementById('form-status');
+  const submitBtn = document.getElementById('submit-btn');
+
+  let db = null;
+  try{
+    const app = initializeApp(firebaseConfig);
+    db = getFirestore(app);
+  } catch(err){
+    console.warn('Firebase not configured yet:', err);
+  }
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    statusEl.textContent = '';
+    statusEl.className = 'form-status';
+
+    const data = Object.fromEntries(new FormData(form).entries());
+
+    if(!db || firebaseConfig.apiKey === "YOUR_API_KEY"){
+      statusEl.textContent = 'Form works, but Firestore isn\u2019t connected yet \u2014 add your Firebase config in register.html to start saving submissions.';
+      statusEl.classList.add('err');
+      return;
+    }
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Submitting…';
+
+    try{
+      await addDoc(collection(db, 'registrations'), {
+        ...data,
+        submittedAt: serverTimestamp()
+      });
+      statusEl.textContent = 'Registration received \u2014 we\u2019ll follow up by email within one business day.';
+      statusEl.classList.add('ok');
+      form.reset();
+    } catch(err){
+      console.error(err);
+      statusEl.textContent = 'Something went wrong submitting the form. Please try again or email us directly.';
+      statusEl.classList.add('err');
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Submit registration';
+    }
+  });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Matrix Math — Courses</title>
+<!-- Favicon: replace favicon.svg in the project folder with your own
+     image (any browser-supported favicon format works — .svg, .png, .ico)
+     and keep this filename, or update the href below to point at it. -->
+<link rel="icon" href="favicon.svg">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <nav class="nav">
+    <a href="index.html" class="brand">
+      <span class="brand-mark">M</span>
+      Matrix Math
+    </a>
+    <button class="nav-toggle" aria-label="Toggle menu">☰</button>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="courses.html" aria-current="page">Courses</a></li>
+      <li><a href="about.html">About &amp; Tutors</a></li>
+      <li><a href="register.html">Register</a></li>
+      <li><a href="reviews.html">Reviews</a></li>
+      <!-- external link to the separate student/coach portal — swap the href if the URL changes -->
+      <li><a href="https://secretninja123.github.io/matrixmathportal" target="_blank" rel="noopener">Matrix Math Portal</a></li>
+    </ul>
+  </nav>
+</header>
+
+<section class="section visual-section" style="padding-top:64px; border-bottom:1px solid var(--border);">
+  <canvas class="ambient-rain" aria-hidden="true"></canvas>
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">// course list</span>
+      <h1>Find the right level</h1>
+      <p>All courses run in small groups of up to 4 students. Not sure which level fits? Mention it on the registration form and we'll place your student after the diagnostic.</p>
+      <div class="mini-stat">
+        <span class="stat" data-target="9" data-decimals="0">0</span>
+        <span class="stat-label">courses currently offered</span>
+      </div>
+    </div>
+
+    <div class="grid grid-3 reveal-stagger">
+
+      <div class="card">
+        <span class="tag">Grades 6–7</span>
+        <h3>Pre-Algebra Foundations</h3>
+        <p>Fractions, ratios, negative numbers, and the first real variables — the building blocks everything after this depends on.</p>
+      </div>
+
+      <div class="card">
+        <span class="tag">Grades 7–9</span>
+        <h3>Algebra I</h3>
+        <p>Linear equations, systems, exponents, and graphing — with steady weekly practice sets.</p>
+      </div>
+
+      <div class="card">
+        <span class="tag">Grades 8–10</span>
+        <h3>Geometry</h3>
+        <p>Proofs, similarity, circles, and area/volume — taught with a lot of drawing, not just formulas.</p>
+      </div>
+
+      <div class="card">
+        <span class="tag">Grades 9–11</span>
+        <h3>Algebra II</h3>
+        <p>Quadratics, polynomials, logarithms, and an introduction to functions as a way of thinking.</p>
+      </div>
+
+      <div class="card">
+        <span class="tag">Grades 10–12</span>
+        <h3>Pre-Calculus</h3>
+        <p>Trigonometry, sequences, and function behavior — the on-ramp to calculus, done properly.</p>
+      </div>
+
+      <div class="card">
+        <span class="tag">Grades 11–12</span>
+        <h3>AP Calculus AB/BC</h3>
+        <p>Limits, derivatives, and integrals, paced against the AP exam with regular timed practice.</p>
+      </div>
+
+      <div class="card">
+        <span class="tag">All levels</span>
+        <h3>Test Prep: SAT/ACT Math</h3>
+        <p>Targeted sessions on the specific question types that show up most often, with timed practice sets.</p>
+      </div>
+
+      <div class="card">
+        <span class="tag">1:1</span>
+        <h3>Private Tutoring</h3>
+        <p>One-on-one sessions for students who want to move faster, slower, or work on a specific class.</p>
+      </div>
+
+      <div class="card">
+        <span class="tag">Ongoing</span>
+        <h3>Homework Help Drop-In</h3>
+        <p>A supervised weekly block where students bring whatever they're stuck on that week.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="section visual-section" style="padding:64px 0;">
+  <canvas class="ambient-rain" aria-hidden="true"></canvas>
+  <div class="wrap reveal" style="text-align:center;">
+    <p style="margin:0 auto 20px; max-width:44ch;">Not sure which course fits? We'll help you figure it out after a short diagnostic.</p>
+    <a href="register.html" class="btn btn-primary">Register for a course</a>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="wrap footer-inner">
+    <span>© Matrix Math Tutoring</span>
+    <span>Home · Courses · About · Register · Reviews</span>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
